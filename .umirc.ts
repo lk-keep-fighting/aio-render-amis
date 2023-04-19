@@ -10,11 +10,18 @@ export default defineConfig({
   layout: {
     title: '@umijs/max',
   },
+  icons: { autoInstall: {} },
   chainWebpack(memo, args) {
     memo.plugin('monaco').use(monaco)
     return memo;
   },
   routes: [
+    {
+      name: '页面设计',
+      path: '/setting/page/:id',
+      component: './Setting/Page',
+      layout:false
+    },
     {
       path: '/',
       redirect: '/home',
@@ -34,7 +41,13 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
+    {
+      name: '页面渲染 ',
+      path: '/page/:id',
+      component: './Page',
+    },
   ],
   npmClient: 'pnpm',
+  esbuildMinifyIIFE: true
 });
 

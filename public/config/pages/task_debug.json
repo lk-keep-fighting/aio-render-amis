@@ -1,0 +1,190 @@
+{
+  "id": "u:e2ffbf3075e1",
+  "body": [
+    {
+      "type": "tabs",
+      "tabs": [
+        {
+          "title": "实时任务池",
+          "body": [
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": ""
+              },
+              "columns": [
+                {
+                  "name": "id",
+                  "label": "ID",
+                  "type": "text",
+                  "id": "u:d7d27d200069"
+                },
+                {
+                  "name": "engine",
+                  "label": "渲染引擎",
+                  "type": "text",
+                  "id": "u:a25037a6ab36"
+                }
+              ],
+              "bulkActions": [],
+              "itemActions": [],
+              "id": "u:d3c77f91b128"
+            }
+          ],
+          "id": "u:d89c89732021"
+        },
+        {
+          "title": "批量新增任务",
+          "body": [
+            {
+              "type": "tpl",
+              "tpl": "内容2",
+              "wrapperComponent": "",
+              "inline": false,
+              "id": "u:14a40ee77c67"
+            },
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": ""
+              },
+              "columns": [
+                {
+                  "name": "id",
+                  "label": "ID",
+                  "type": "text",
+                  "id": "u:911f8908e451"
+                },
+                {
+                  "name": "engine",
+                  "label": "渲染引擎",
+                  "type": "text",
+                  "id": "u:7b818b5b79fd"
+                },
+                {
+                  "type": "operation",
+                  "label": "操作",
+                  "buttons": [
+                    {
+                      "label": "编辑",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "link",
+                      "dialog": {
+                        "title": "编辑",
+                        "body": {
+                          "type": "form",
+                          "api": "xxx/update",
+                          "body": [
+                            {
+                              "name": "id",
+                              "label": "ID",
+                              "type": "input-text",
+                              "id": "u:497aabc3aa32"
+                            },
+                            {
+                              "name": "engine",
+                              "label": "渲染引擎",
+                              "type": "input-text",
+                              "id": "u:7e8ed6012c20"
+                            }
+                          ],
+                          "id": "u:93e56d5a993e"
+                        }
+                      },
+                      "id": "u:4d484e910122"
+                    }
+                  ],
+                  "id": "u:77d8fe28c1b2"
+                }
+              ],
+              "bulkActions": [
+                {
+                  "type": "button",
+                  "label": "批量编辑",
+                  "actionType": "dialog",
+                  "dialog": {
+                    "title": "批量编辑",
+                    "size": "md",
+                    "body": {
+                      "type": "form",
+                      "api": "/xxx/bacth-edit",
+                      "body": [
+                        {
+                          "label": "字段1",
+                          "text": "字段1",
+                          "type": "input-text",
+                          "id": "u:bca3a02050f6"
+                        }
+                      ],
+                      "id": "u:8b890564169c"
+                    }
+                  },
+                  "id": "u:8249564849fc"
+                },
+                {
+                  "type": "button",
+                  "level": "danger",
+                  "label": "批量删除",
+                  "actionType": "ajax",
+                  "confirmText": "确定要删除？",
+                  "api": "/xxx/batch-delete",
+                  "id": "u:98cb0af88169"
+                }
+              ],
+              "itemActions": [],
+              "features": [
+                "create",
+                "bulkUpdate",
+                "update",
+                "bulkDelete"
+              ],
+              "headerToolbar": [
+                {
+                  "label": "新增",
+                  "type": "button",
+                  "actionType": "dialog",
+                  "level": "primary",
+                  "dialog": {
+                    "title": "新增",
+                    "body": {
+                      "type": "form",
+                      "api": {
+                        "method": "post",
+                        "url": ""
+                      },
+                      "body": [
+                        {
+                          "type": "input-text",
+                          "name": "id",
+                          "label": "ID",
+                          "id": "u:304806a22bc0"
+                        },
+                        {
+                          "type": "input-text",
+                          "name": "engine",
+                          "label": "渲染引擎",
+                          "id": "u:890cef7d10c3"
+                        }
+                      ],
+                      "id": "u:cae68cfd801d"
+                    }
+                  },
+                  "id": "u:670c71d2bcc8"
+                },
+                "bulkActions"
+              ],
+              "id": "u:2f10bda37eca"
+            }
+          ],
+          "id": "u:dc291d5a5179"
+        }
+      ],
+      "id": "u:38e3ec28b419"
+    }
+  ]
+}

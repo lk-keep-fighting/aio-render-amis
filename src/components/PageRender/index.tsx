@@ -2,21 +2,20 @@
 import * as React from 'react';
 import axios from 'axios';
 import copy from 'copy-to-clipboard';
-import { render as renderAmis } from 'amis';
+import { Schema, render as renderAmis } from 'amis';
 import { ToastComponent, AlertComponent, alert, confirm, toast } from 'amis-ui';
-import 'amis/lib/themes/cxd.css';
-import 'amis/lib/helper.css';
-import 'amis/sdk/iconfont.css';
-class PageRender extends React.Component<any, any> {
+interface IPageRenderProps {
+    config: Schema
+}
+class PageRender extends React.Component<IPageRenderProps, any> {
     render() {
         let amisScoped;
         let theme = 'cxd';
         let locale = 'zh-CN';
-
+        console.log(this.props.config)
         // 请勿使用 React.StrictMode，目前还不支持
         return (
             <div>
-                <p>通过 amis 渲染页面 </p>
                 < ToastComponent
                     theme={theme}
                     key="toast"
@@ -26,12 +25,7 @@ class PageRender extends React.Component<any, any> {
                 <AlertComponent theme={theme} key="alert" locale={locale} />
                 {
                     renderAmis(
-                        {
-                            // 这里是 amis 的 Json 配置。
-                            type: 'page',
-                            title: '简单页面',
-                            body: '内容'
-                        },
+                        this.props?.config,
                         {
                             // props...
                             // locale: 'en-US' // 请参考「多语言」的文档

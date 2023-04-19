@@ -1,0 +1,42 @@
+{
+    "id": "task",
+    "title": "任务中间件",
+    "menus": [
+        {
+            "key": "1",
+            "name": "一级菜单",
+            "children": [
+                {
+                    "key": "def",
+                    "name": "页面预览"
+                }
+            ]
+        },
+        {
+            "key": "task_debug",
+            "name": "任务调试"
+        },
+        {
+            "key": "task_log",
+            "name": "日志分析"
+        },
+        {
+            "key": "eb_log_kanban",
+            "name": "ESBox"
+        },
+        {
+            "key": "eb_zd",
+            "name": "设备诊断"
+        }
+    ],
+    "linkApps": [
+        {
+            "id": "task",
+            "title": "任务中间件"
+        },
+        {
+            "id": "esbox",
+            "title": "ESBox"
+        }
+    ]
+}
