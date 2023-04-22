@@ -28,15 +28,5 @@
             "key": "eb_zd",
             "name": "设备诊断"
         }
-    ],
-    "linkApps": [
-        {
-            "id": "task",
-            "title": "任务中间件"
-        },
-        {
-            "id": "esbox",
-            "title": "ESBox"
-        }
     ]
 }
