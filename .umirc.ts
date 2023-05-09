@@ -15,12 +15,24 @@ export default defineConfig({
     memo.plugin('monaco').use(monaco)
     return memo;
   },
+  proxy: {
+    '/api': {
+      'target': 'http://localhost:18080',
+      'changeOrigin': true,
+      'pathRewrite': { '^/api': '' },
+    },
+    '/openai': {
+      'target': 'http://18.191.186.114',
+      'changeOrigin': true,
+      'pathRewrite': { '^/openai': '' },
+    }
+  },
   routes: [
     {
       name: '页面设计',
       path: '/setting/page/:id',
       component: './Setting/Page',
-      layout:false
+      layout: false
     },
     {
       path: '/',
