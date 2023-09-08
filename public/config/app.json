@@ -1,32 +1,56 @@
 {
-    "id": "task",
-    "title": "任务中间件",
+    "id": "xuanwu-factory",
+    "title": "玄武工厂",
     "menus": [
         {
-            "key": "1",
-            "name": "一级菜单",
+            "key": "home",
+            "name": "首页"
+        },
+        {
+            "key": "backend",
+            "name": "后端资产",
             "children": [
                 {
-                    "key": "def",
-                    "name": "页面预览"
+                    "key": "micro-service",
+                    "name": "微服务组件"
+                },
+                {
+                    "key": "meta-api",
+                    "name": "原子服务"
+                },
+                {
+                    "key": "logic-api",
+                    "name": "逻辑编排服务"
                 }
             ]
         },
         {
-            "key": "task_debug",
-            "name": "任务调试"
+            "key": "prod",
+            "name": "产品管理",
+            "children": [
+                {
+                    "key": "app",
+                    "name": "应用配置"
+                },
+                {
+                    "key": "service",
+                    "name": "服务配置"
+                }
+            ]
         },
         {
-            "key": "task_log",
-            "name": "日志分析"
-        },
-        {
-            "key": "eb_log_kanban",
-            "name": "ESBox"
-        },
-        {
-            "key": "eb_zd",
-            "name": "设备诊断"
+            "key": "pub",
+            "name": "发布管理",
+            "children": [
+                {
+                    "key": "publish",
+                    "name": "发布"
+                },
+                {
+                    "key": "publish-record",
+                    "name": "发布记录"
+                }
+            ]
         }
     ]
 }
