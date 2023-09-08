@@ -3,11 +3,36 @@ import styles from './index.less';
 import PageDesinger from '@/components/PageDesigner';
 import { Button, Divider, Input, Typography, Modal, Space, message } from 'antd';
 import { useMemo, useState } from 'react';
-import { Editor, InputJSONSchema, JSONSchemaEditor } from 'amis-ui'
+import { Editor, InputJSONSchema, JSONSchemaEditor,toast } from 'amis-ui'
 import copy from 'copy-to-clipboard';
 import { BulbOutlined } from '@ant-design/icons';
-
-const HomePage: React.FC = (props) => {
+import axios from 'axios';
+axios.interceptors.response.use(response => {
+    console.log('axios config')
+    console.log(response)
+    if (response.data) {
+        // 数据正常，进行的逻辑功能
+        return response
+    } else {
+        // 如果返回的 success 是 false，表明业务出错，直接触发 reject
+        // 抛出的错误，被 catch 捕获
+        return Promise.reject(new Error(response.data.message))
+    }
+}, error => {
+    console.log('axios error')
+    if (error.response.data) {
+        // 数据正常，进行的逻辑功能
+        const rep = error.response;
+        console.log('--》data有返回值，判定为业务异常，继续返回response！');
+        console.log(rep);
+        return rep;
+    }
+    // 对响应错误做点什么
+    return Promise.reject(error)
+})
+const SettingPage: React.FC = (props) => {
+    let theme = 'cxd';
+    let locale = 'zh-CN';
     const match = useMatch('/setting/page/:id');
     const pageId = match?.params.id;
     const [jsonSchema, setJsonSchema] = useState({})
@@ -81,9 +106,94 @@ const HomePage: React.FC = (props) => {
                     type='primary'
                     style={{ width: '100%', marginTop: '5px', marginBottom: '5px' }}
                 >生成配置↓</Button>
-                <Editor value={AIGCJson} onChange={(v) => setAIGCJson(v)} height={300} language='json'
+                <Editor
+                    value={AIGCJson}
+                    onChange={(v) => setAIGCJson(v)} height={300} language='json'
                     options={{
-                        lineNumbers: 'off'
+                        // 下面三个接口必须实现
+                        fetcher: ({
+                            url, // 接口地址
+                            method, // 请求方法 get、post、put、delete
+                            data, // 请求数据
+                            responseType,
+                            config, // 其他配置
+                            headers // 请求头
+                        }: any) => {
+                            config = config || {};
+                            config.withCredentials = true;
+                            responseType && (config.responseType = responseType);
+
+                            if (config.cancelExecutor) {
+                                config.cancelToken = new (axios as any).CancelToken(
+                                    config.cancelExecutor
+                                );
+                            }
+
+                            config.headers = headers || {};
+
+                            if (method !== 'post' && method !== 'put' && method !== 'patch') {
+                                if (data) {
+                                    config.params = data;
+                                }
+
+                                return (axios as any)[method](url, config);
+                            } else if (data && data instanceof FormData) {
+                                config.headers = config.headers || {};
+                                config.headers['Content-Type'] = 'multipart/form-data';
+                            } else if (
+                                data &&
+                                typeof data !== 'string' &&
+                                !(data instanceof Blob) &&
+                                !(data instanceof ArrayBuffer)
+                            ) {
+                                data = JSON.stringify(data);
+                                config.headers = config.headers || {};
+                                config.headers['Content-Type'] = 'application/json';
+                            }
+
+                            return (axios as any)[method](url, data, config);
+                        },
+                        isCancel: (value: any) => (axios as any).isCancel(value),
+                        copy: content => {
+                            copy(content);
+                            toast.success('内容已复制到粘贴板');
+                        },
+                        theme
+
+                        // 后面这些接口可以不用实现
+
+                        // 默认是地址跳转
+                        // jumpTo: (
+                        //   location: string /*目标地址*/,
+                        //   action: any /* action对象*/
+                        // ) => {
+                        //   // 用来实现页面跳转, actionType:link、url 都会进来。
+                        // },
+
+                        // updateLocation: (
+                        //   location: string /*目标地址*/,
+                        //   replace: boolean /*是replace，还是push？*/
+                        // ) => {
+                        //   // 地址替换，跟 jumpTo 类似
+                        // },
+
+                        // isCurrentUrl: (
+                        //   url: string /*url地址*/,
+                        // ) => {
+                        //   // 用来判断是否目标地址当前地址
+                        // },
+
+                        // notify: (
+                        //   type: 'error' | 'success' /**/,
+                        //   msg: string /*提示内容*/
+                        // ) => {
+                        //   toast[type]
+                        //     ? toast[type](msg, type === 'error' ? '系统错误' : '系统消息')
+                        //     : console.warn('[Notify]', type, msg);
+                        // },
+                        // alert,
+                        // confirm,
+                        // tracker: (eventTracke) => {}
                     }}
                 />
             </Modal>
@@ -91,4 +201,4 @@ const HomePage: React.FC = (props) => {
     );
 };
 
-export default HomePage;
+export default SettingPage;

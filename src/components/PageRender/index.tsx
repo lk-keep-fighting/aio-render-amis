@@ -8,23 +8,30 @@ interface IPageRenderProps {
     config: Schema
 }
 axios.interceptors.response.use(response => {
-    console.log('axios config')
+    console.log('axios response')
     console.log(response)
     if (response.data) {
-        // 数据正常，进行的逻辑功能
+        console.log('--请求未报错，适配status=0');
+        if (!response.data.error) response.data.error = { code: 0 };//修复amis会自动取error.code作为status
+        response.data.status = 0;
         return response
     } else {
-        // 如果返回的 success 是 false，表明业务出错，直接触发 reject
-        // 抛出的错误，被 catch 捕获
+        // 数据为空
+        console.log('--返回数据为空，判断为异常');
+        console.log(response.data);
         return Promise.reject(new Error(response.data.message))
     }
 }, error => {
-    console.log('axios error')
+    console.log('捕捉axios error')
+    console.log(error);
     if (error.response.data) {
         // 数据正常，进行的逻辑功能
         const rep = error.response;
-        console.log('--》data有返回值，判定为业务异常，继续返回response！');
+        console.log('--data有返回值，判定为业务异常，继续返回response,适配status=500！');
+        error.response.data.status = 500;
+        if (error.response.data.error?.code == 0) error.response.data.error.code = 500
         console.log(rep);
+        // 对响应错误做点什么
         return rep;
     }
     // 对响应错误做点什么
