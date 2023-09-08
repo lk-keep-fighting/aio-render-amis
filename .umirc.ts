@@ -16,10 +16,10 @@ export default defineConfig({
     return memo;
   },
   proxy: {
-    '/api': {
-      'target': 'http://localhost:18080',
+    '/api/form': {
+      'target': 'http://192.168.44.70:5001',
       'changeOrigin': true,
-      'pathRewrite': { '^/api': '' },
+      // 'pathRewrite': { '^/api': '' },
     },
     '/openai': {
       'target': 'http://18.191.186.114',
@@ -29,35 +29,45 @@ export default defineConfig({
   },
   routes: [
     {
-      name: '页面设计',
-      path: '/setting/page/:id',
-      component: './Setting/Page',
-      layout: false
-    },
-    {
       path: '/',
-      redirect: '/home',
+      redirect: '/page'
     },
     {
       name: '首页',
-      path: '/home',
-      component: './Home',
+      path: '/page',
+      routes:[
+        {
+          name: '页面渲染 ',
+          path: '/page/:id',
+          component: './Page',
+        },
+      ]
     },
+  
+    // {
+    //   name: '权限演示',
+    //   path: '/access',
+    //   component: './Access',
+    // },
+    // {
+    //   name: ' CRUD 示例',
+    //   path: '/table',
+    //   component: './Table',
+    // },
     {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
+      name: '页面设计-',
+      path: '/setting',
+      layout: false,
+      routes: [
+        {
+          name: '页面设计',
+          path: '/setting/page/:id',
+          component: './Setting/Page',
+          layout: false
+        },
+      ]
     },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
-    },
-    {
-      name: '页面渲染 ',
-      path: '/page/:id',
-      component: './Page',
-    },
+
   ],
   npmClient: 'pnpm',
   esbuildMinifyIIFE: true

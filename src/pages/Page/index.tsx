@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { useMatch, useModel } from '@umijs/max';
+import { Link, useMatch, useModel } from '@umijs/max';
 import styles from './index.less';
 import PageRender from '@/components/PageRender';
 import { Button } from 'antd';
@@ -14,7 +14,7 @@ const HomePage: React.FC = (props) => {
     return (
         <PageContainer ghost extra={
             [
-                <Button href={`/setting/page/${routePageId}`} target='_blank' key={1} ><Icon icon='ic:baseline-border-color' /></Button >
+                <Link to={`/setting/page/${routePageId}`} target='_blank' key={1} ><Icon icon='ic:baseline-border-color' /></Link >
             ]
         }>
             <div className={styles.container}>

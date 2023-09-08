@@ -4,7 +4,7 @@ import { useModel } from '@umijs/max';
 import styles from './index.less';
 import { useState } from 'react';
 
-const HomePage: React.FC = (props) => {
+const SettingLayout: React.FC = (props) => {
     const { name } = useModel('global');
     console.log('setting layout')
     return (
@@ -12,4 +12,4 @@ const HomePage: React.FC = (props) => {
     );
 };
 
-export default HomePage;
+export default SettingLayout;
