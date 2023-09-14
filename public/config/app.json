@@ -25,30 +25,16 @@
             ]
         },
         {
-            "key": "prod",
-            "name": "产品管理",
+            "key": "dev",
+            "name": "设备集成测试",
             "children": [
                 {
-                    "key": "app",
-                    "name": "应用配置"
+                    "key": "use-case",
+                    "name": "测试套件"
                 },
                 {
-                    "key": "service",
-                    "name": "服务配置"
-                }
-            ]
-        },
-        {
-            "key": "pub",
-            "name": "发布管理",
-            "children": [
-                {
-                    "key": "publish",
-                    "name": "发布"
-                },
-                {
-                    "key": "publish-record",
-                    "name": "发布记录"
+                    "key": "use-case-record",
+                    "name": "测试记录"
                 }
             ]
         }

@@ -1,6 +1,6 @@
 {
-  "private": true,
   "author": "lk <442969153@qq.com>",
+  "name": "aios-render",
   "scripts": {
     "dev": "max dev",
     "build": "max build",
